@@ -10,4 +10,7 @@ class Game < ApplicationRecord
                         dependent: :nullify,
                         inverse_of: :parent
   belongs_to :parent, class_name: 'Game', optional: true
+
+  # polymorphic
+  has_many :critics, as: :criticable, dependent: :destroy
 end
