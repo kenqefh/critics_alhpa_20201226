@@ -13,4 +13,10 @@ class Game < ApplicationRecord
 
   # polymorphic
   has_many :critics, as: :criticable, dependent: :destroy
+
+  # Enums
+  enum category: {
+    main_game: 0,
+    expansion: 1
+  }
 end
