@@ -4,4 +4,7 @@ class Company < ApplicationRecord
 
   # polymorphic
   has_many :critics, as: :criticable, dependent: :destroy
+
+  # validations
+  validates :name, presence: true, uniqueness: true
 end

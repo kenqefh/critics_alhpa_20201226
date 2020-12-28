@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_27_234734) do
+ActiveRecord::Schema.define(version: 2020_12_28_043228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2020_12_27_234734) do
     t.string "country"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_companies_on_name", unique: true
   end
 
   create_table "critics", force: :cascade do |t|
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(version: 2020_12_27_234734) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "parent_id"
+    t.index ["name"], name: "index_games_on_name", unique: true
     t.index ["parent_id"], name: "index_games_on_parent_id"
   end
 
@@ -62,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_12_27_234734) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_genres_on_name", unique: true
   end
 
   create_table "involved_companies", force: :cascade do |t|
@@ -71,6 +74,7 @@ ActiveRecord::Schema.define(version: 2020_12_27_234734) do
     t.boolean "publisher"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id", "game_id"], name: "index_involved_companies_on_company_id_and_game_id", unique: true
     t.index ["company_id"], name: "index_involved_companies_on_company_id"
     t.index ["game_id"], name: "index_involved_companies_on_game_id"
   end
@@ -80,6 +84,7 @@ ActiveRecord::Schema.define(version: 2020_12_27_234734) do
     t.integer "category"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_platforms_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -91,6 +96,8 @@ ActiveRecord::Schema.define(version: 2020_12_27_234734) do
     t.integer "critics_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "critics", "users"
